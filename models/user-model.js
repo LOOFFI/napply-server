@@ -14,6 +14,7 @@ const userSchema = new Schema(
     },
     company: { type: String, required: true },
     birthday: { type: Date, required: true },
+    phoneNumber: { type: Number, required: true },
     encryptedPassword: { type: String, required: true },
     role: {
       type: String,

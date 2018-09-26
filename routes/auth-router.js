@@ -6,12 +6,26 @@ const User = require("../models/user-model.js");
 const router = express.Router();
 
 router.post("/signup", (req, res, next) => {
-  const { fullName, email, company, birthday, originalPassword } = req.body;
+  const {
+    fullName,
+    email,
+    company,
+    birthday,
+    phoneNumber,
+    originalPassword
+  } = req.body;
 
   // encrypt the submitted password
   const encryptedPassword = bcrypt.hashSync(originalPassword, 10);
 
-  User.create({ fullName, email, company, birthday, encryptedPassword })
+  User.create({
+    fullName,
+    email,
+    company,
+    birthday,
+    phoneNumber,
+    encryptedPassword
+  })
     .then(userDoc => {
       // LOG IN THIS USER
       // "req.logIn()" is a Passport method that calls "serializeUser()"
