@@ -89,4 +89,12 @@ router.get("/checklogin", (req, res, next) => {
   }
 });
 
+router.get("/my-account/:id", (req, res, next) => {
+  const { id } = req.params;
+
+  User.findById(id)
+    .then(userDoc => res.json(userDoc))
+    .catch(err => next(err));
+});
+
 module.exports = router;
