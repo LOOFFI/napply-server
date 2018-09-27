@@ -97,4 +97,34 @@ router.get("/my-account/:id", (req, res, next) => {
     .catch(err => next(err));
 });
 
+router.put("/my-account/:id", (req, res, next) => {
+  const { id } = req.params;
+  const {
+    fullName,
+    email,
+    originalPassword,
+    company,
+    birthday,
+    phoneNumber
+  } = req.body;
+
+  User.findByIdAndUpdate(
+    id,
+    {
+      $set: {
+        fullName,
+        email,
+        originalPassword,
+        company,
+        birthday,
+        phoneNumber
+      }
+    },
+    // "new" gets the updated version of the document
+    { runValidators: true, new: true }
+  )
+    .then(userDoc => res.json(userDoc))
+    .catch(err => next(err));
+});
+
 module.exports = router;
