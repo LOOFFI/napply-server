@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 router.get("/booking-date", (req,res,next) => {
-  
+  const {day} = req.params;
   Booking.find({ date: { $gt: new Date(year,month,day,0,0), $lt: new Date(year,month,day,23,59) } })
     .then(bookingResults => res.json(bookingResults))
     .catch(err => next(err))
