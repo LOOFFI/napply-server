@@ -4,6 +4,7 @@ const User = require("../models/user-model.js");
 const router = express.Router();
 
 router.get("/booking-date", (req, res, next) => {
+  const { day } = req.params;
   Booking.find({
     date: {
       $gt: new Date(year, month, day, 0, 0),
@@ -15,8 +16,7 @@ router.get("/booking-date", (req, res, next) => {
 });
 
 router.post("/booking-date", (res, req, next) => {
-  const { booked, date } = req.body;
-  const user_id = req.user._id;
+  const { booked, user_id, date } = req.body;
 
   Booking.create({ booked, user_id, date })
     .then(bookingDoc => res.json(bookingDoc))
