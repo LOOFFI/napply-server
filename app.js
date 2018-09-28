@@ -59,7 +59,7 @@ passportSetup(app);
 const authRouter = require("./routes/auth-router.js");
 app.use("/api", authRouter);
 
-const bookingRouter = require("./routes/booking-router.js")
+const bookingRouter = require("./routes/booking-router.js");
 app.use("/api", bookingRouter);
 
 module.exports = app;

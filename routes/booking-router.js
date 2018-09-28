@@ -3,10 +3,10 @@ const Booking = require("../models/booking-model.js");
 const User = require("../models/user-model.js");
 const router = express.Router();
 
-router.post("/location", (res, req, next) => {
+router.post("/location", (req, res, next) => {
   const { truck_id, user_id } = req.body;
 
-  Booking.create({ truck_id })
+  Booking.create({ truck_id, user_id })
     .then(bookingDoc => res.json(bookingDoc))
     .catch(err => next(err));
 });
