@@ -11,16 +11,30 @@ router.post("/location", (req, res, next) => {
     .catch(err => next(err));
 });
 
-router.post("/booking-date", (req, res, next) => {
-  console.log( req.body );
+router.put("/options/:id", (req, res, next) => {
+  const { id } = req.params;
+  const { sound, plaid, energyShot } = req.body;
   
-  const { selectedDay } = req.body;
-  const year = selectedDay.slice(0,4);
-  console.log(year);
-  const month = (selectedDay.slice(5,7)-1);
-  console.log(month);
-  const day = selectedDay.slice(8,10);
-  console.log(day);
+  Booking.findByIdAndUpdate(
+    id,
+    { $set: { sound, plaid, energyShot } },
+    { runValidators: true, new: true }
+  )
+  .then(bookingDoc => res.json(bookingDoc))
+  .catch(err => next(err));
+});
+
+
+router.post("/booking-date", (req, res, next) => {
+      console.log( req.body );
+      
+      const { selectedDay } = req.body;
+      const year = selectedDay.slice(0,4);
+      console.log(year);
+      const month = (selectedDay.slice(5,7)-1);
+      console.log(month);
+      const day = selectedDay.slice(8,10);
+      console.log(day);
   Booking.find({
     date: {
       $gt: new Date(year, month, day, 0, 0),
