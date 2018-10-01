@@ -8,7 +8,9 @@ const bookingSchema = new Schema(
     date: { type: Date },
     booked: { type: Boolean, default: true },
     truck_id: { type: String, required: true },
-    options: { type: [String] }
+    sound: { type: String, default: "none" },
+    plaid: { type: String, default: "none" },
+    energyShot: { type: String, default: "none" }
   },
   {
     timestamps: true

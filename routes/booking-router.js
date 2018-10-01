@@ -11,6 +11,19 @@ router.post("/location", (req, res, next) => {
     .catch(err => next(err));
 });
 
+router.put("/options/:id", (req, res, next) => {
+  const { id } = req.params;
+  const { sound, plaid, energyShot } = req.body;
+
+  Booking.findByIdAndUpdate(
+    id,
+    { $set: { sound, plaid, energyShot } },
+    { runValidators: true, new: true }
+  )
+    .then(bookingDoc => res.json(bookingDoc))
+    .catch(err => next(err));
+});
+
 router.get("/booking-date", (req, res, next) => {
   const { day } = req.params;
   Booking.find({
