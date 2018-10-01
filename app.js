@@ -41,7 +41,7 @@ app.use(
     // allow other domains/origins to send cookies
     credentials: true,
     // this is the domain we want cookies from (Our React app)
-    origin: ["http://localhost:3000"]
+    origin: "http://localhost:3000"
   })
 );
 // Session setup after CORS
