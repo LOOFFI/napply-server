@@ -3,6 +3,21 @@ const Booking = require("../models/booking-model.js");
 const User = require("../models/user-model.js");
 const router = express.Router();
 
+
+
+router.get("/booking-date/:id", (req,res,next) => {
+  const {id} = req.params;
+  console.log("hiiiiii!!!!!!!!",req.body);
+  console.log("ooooouuuuu",req.params)
+  const {date} = req.body;
+  Booking.findById(id)
+    .then(bookingDoc => res.json(bookingDoc))
+    .catch(err => {
+      console.log("error de get");
+      next(err)});
+});
+
+
 router.post("/location", (req, res, next) => {
   const { truck_id, user_id } = req.body;
 
@@ -26,7 +41,7 @@ router.put("/options/:id", (req, res, next) => {
 
 
 router.post("/booking-date", (req, res, next) => {
-      console.log( req.body );
+      console.log("hey", req.body );
       
       const { selectedDay } = req.body;
       const year = selectedDay.slice(0,4);
@@ -60,6 +75,8 @@ router.post("/booking-date/:id", (req, res, next) => {
     .then(bookingDoc => res.json(bookingDoc))
     .catch(err => next(err));
 });
+
+
 
 
 
