@@ -9,7 +9,6 @@ const path = require("path");
 const cors = require("cors");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
-const path = require("path");
 
 const passportSetup = require("./config/passport/passport-setup.js");
 
