@@ -10,7 +10,11 @@ const bookingSchema = new Schema(
     truck_id: { type: String, required: true },
     sound: { type: String, default: "none" },
     plaid: { type: String, default: "none" },
-    energyShot: { type: String, default: "none" }
+    energyShot: {
+      type: String,
+      default: "none",
+      enum: ["none", "Super Green", "Veggie Detox", "White Paradise"]
+    }
   },
   {
     timestamps: true
