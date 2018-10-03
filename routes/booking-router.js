@@ -17,6 +17,15 @@ router.get("/booking-date/:id", (req,res,next) => {
       next(err)});
 });
 
+router.get("/booking-date/", (req,res,next) => {
+ 
+  Booking.find({user_id: {$eq:req.user._id}})
+    .then(bookingDoc => res.json(bookingDoc))
+    .catch(err => {
+      console.log("error de get");
+      next(err)});
+});
+
 
 router.post("/location", (req, res, next) => {
   const { truck_id, user_id } = req.body;
@@ -25,6 +34,7 @@ router.post("/location", (req, res, next) => {
     .then(bookingDoc => res.json(bookingDoc))
     .catch(err => next(err));
 });
+
 
 router.put("/options/:id", (req, res, next) => {
   const { id } = req.params;
