@@ -14,7 +14,7 @@ const passportSetup = require("./config/passport/passport-setup.js");
 
 mongoose
   .connect(
-    "mongodb://localhost/napply-server",
+    process.env.MONGODB_URI,
     { useNewUrlParser: true }
   )
   .then(x => {
@@ -33,6 +33,7 @@ app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "public")));
 
 // Allow Cross-Origin Resource Sharing (cors)
 // (access the API from the front-end JavaScript on a different domain/origin)
@@ -61,5 +62,9 @@ app.use("/api", authRouter);
 
 const bookingRouter = require("./routes/booking-router.js");
 app.use("/api", bookingRouter);
+
+app.use((req, res, next) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 module.exports = app;
