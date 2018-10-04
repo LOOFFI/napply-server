@@ -88,11 +88,14 @@ router.post("/booking-date/:id", (req, res, next) => {
 });
 
 
-// router.delete("/booking-date/:id", (req, res, next) => {
-//   const { id } = req.params;
-//   Booking.findByIdAndRemove(id)
-//     .then(bookingDoc => res.json(bookingDoc))
-//     .catch(err => next(err));
-// });
+router.delete("/booking/:id", (req, res, next) => {
+  const { id } = req.params;
+  Booking.findByIdAndRemove(id)
+    .then(bookingDoc => {
+      console.log("Booking Deleted!");
+      res.json(bookingDoc);
+    })
+    .catch(err => next(err));
+});
 
 module.exports = router;
