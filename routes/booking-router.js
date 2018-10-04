@@ -5,20 +5,26 @@ const router = express.Router();
 
 router.get("/booking-date/:id", (req, res, next) => {
   const { id } = req.params;
-  console.log("hiiiiii!!!!!!!!", req.body);
-  console.log("ooooouuuuu", req.params);
-  const { date } = req.body;
+  Booking.findById(id)
+  .then(bookingDoc => res.json(bookingDoc))
+  .catch(err => {
+    console.log("error de get");
+    next(err);
+  });
+});
+
+router.get("/booking/:id", (req, res, next) => {
+  const { id } = req.params;
   Booking.findById(id)
     .then(bookingDoc => res.json(bookingDoc))
-    .catch(err => {
-      console.log("error de get");
-      next(err);
-    });
+    .catch(err => next(err));
 });
+
 
 router.get("/booking-date/", (req, res, next) => {
   Booking.find({ user_id: { $eq: req.user._id } })
-    .then(bookingDoc => res.json(bookingDoc))
+    .then(bookingDoc => {
+      res.json(bookingDoc)})
     .catch(err => {
       console.log("error de get");
       next(err);
@@ -27,7 +33,6 @@ router.get("/booking-date/", (req, res, next) => {
 
 router.post("/location", (req, res, next) => {
   const { truck_id, user_id } = req.body;
-
   Booking.create({ truck_id, user_id })
     .then(bookingDoc => res.json(bookingDoc))
     .catch(err => next(err));
@@ -36,6 +41,7 @@ router.post("/location", (req, res, next) => {
 router.put("/options/:id", (req, res, next) => {
   const { id } = req.params;
   const { sound, plaid, energyShot } = req.body;
+  console.log("PROBLEM",req.body)
 
   Booking.findByIdAndUpdate(
     id,
@@ -45,6 +51,9 @@ router.put("/options/:id", (req, res, next) => {
     .then(bookingDoc => res.json(bookingDoc))
     .catch(err => next(err));
 });
+
+
+
 
 router.post("/booking-date", (req, res, next) => {
   console.log(req.body);
@@ -69,19 +78,15 @@ router.post("/booking-date", (req, res, next) => {
 router.post("/booking-date/:id", (req, res, next) => {
   const { id } = req.params;
   const { selectedDay, slot } = req.body;
-  const date = selectedDay.slice(0, 10) + " " + slot + ":00";
-  console.log(req.body);
+  const date = new Date(selectedDay.slice(0, 10) + " " + slot + ":00");
+  date.setMinutes(date.getMinutes() - date.getTimezoneOffset())
+
+  // console.log(req.body);
   Booking.findByIdAndUpdate(id, { $set: { date } }, { runValidators: true })
     .then(bookingDoc => res.json(bookingDoc))
     .catch(err => next(err));
 });
 
-router.get("/booking/:id", (req, res, next) => {
-  const { id } = req.params;
-  Booking.findById(id)
-    .then(bookingDoc => res.json(bookingDoc))
-    .catch(err => next(err));
-});
 
 // router.delete("/booking-date/:id", (req, res, next) => {
 //   const { id } = req.params;
