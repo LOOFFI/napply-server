@@ -13,9 +13,9 @@ router.get("/booking-date/:id", (req, res, next) => {
   });
 });
 
-router.get("/booking/:id", (req, res, next) => {
-  const { id } = req.params;
-  Booking.findById(id)
+router.get("/booking", (req, res, next) => {
+  
+  Booking.find()
     .then(bookingDoc => res.json(bookingDoc))
     .catch(err => next(err));
 });
