@@ -123,7 +123,11 @@ router.put("/my-account/:id", (req, res, next) => {
     // "new" gets the updated version of the document
     { runValidators: true, new: true }
   )
-    .then(userDoc => res.json(userDoc))
+    .then(userDoc => {
+      // console.log("LOGGED IN USER", req.user);
+      // console.log("NEW VERSION OF THE USER", userDoc);
+      res.json(userDoc);
+    })
     .catch(err => next(err));
 });
 
