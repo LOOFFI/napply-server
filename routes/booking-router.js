@@ -34,7 +34,7 @@ router.get("/booking-date/", (req, res, next) => {
 
 
 //-----------------------------------------------------------------------------------------
-// This location post request is here to create the booking when the user validate the 
+// This /location POST request is here to create the booking when the user validate the 
 // process whith all the state parameters from the Booking component 
 //-----------------------------------------------------------------------------------------
 
@@ -51,7 +51,7 @@ router.post("/location", (req, res, next) => {
 });
 
 //------------------------------------------------------------------------------------------
-// the booking-date post request is here to feed the bookingArray in the booking component
+// the /booking-date POST request is here to feed the bookingArray in the booking component
 // in order to see if a time-slot is already booked
 //------------------------------------------------------------------------------------------
 
