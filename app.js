@@ -37,6 +37,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Allow Cross-Origin Resource Sharing (cors)
 // (access the API from the front-end JavaScript on a different domain/origin)
+//----------------------------------------------------------------------------
 app.use(
   cors({
     // allow other domains/origins to send cookies
